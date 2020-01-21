@@ -29,8 +29,8 @@ under the License.
 		<relativePath>..</relativePath>
 	</parent>
 
-	<artifactId>flink-metrics-statsd</artifactId>
-	<name>flink-metrics-statsd</name>
+	<artifactId>flink-metrics-statsd-javadevmtl</artifactId>
+	<name>flink-metrics-statsd-javadevmtl</name>
 
 	<dependencies>
 		<dependency>

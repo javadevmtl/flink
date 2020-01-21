@@ -69,6 +69,14 @@ public class StatsDReporterTest extends TestLogger {
 		assertEquals("a-b--", reporter.filterCharacters("a:b::"));
 	}
 
+	@Test
+	public void testReplace() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+		StatsDReporter reporter = new StatsDReporter();
+
+		assertEquals("ReplaceMultipleSpaces", reporter.replace("Replace Multiple Spaces", " ", ""));
+		assertEquals("some.flink.metric:0", reporter.replace("some.flink.metric:-Infinity", "-Infinity", "0"));
+	}
+
 	/**
 	 * Tests that the registered metrics' names don't contain invalid characters.
 	 */

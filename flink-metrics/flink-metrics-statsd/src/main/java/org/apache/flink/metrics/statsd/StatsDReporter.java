@@ -181,13 +181,17 @@ public class StatsDReporter extends AbstractReporter implements Scheduled {
 
 	private void send(final String name, final String value) {
 		try {
-			String formatted = String.format("%s:%s|g", name, value);
+			String formatted = String.format("%s:%s|g", replace(name, " ", ""), replace(value, "-Infinity", "0"));
 			byte[] data = formatted.getBytes(StandardCharsets.UTF_8);
 			socket.send(new DatagramPacket(data, data.length, this.address));
 		}
 		catch (IOException e) {
 			LOG.error("unable to send packet to statsd at '{}:{}'", address.getHostName(), address.getPort());
 		}
+	}
+
+	public String replace(final String value, CharSequence target, CharSequence replacement) {
+		return value.replace(target, replacement);
 	}
 
 	@Override
