@@ -179,6 +179,15 @@ public class StatsDReporter extends AbstractReporter implements Scheduled {
 		}
 	}
 
+	/**
+	 * Sends the specified metric to the StatsD backend.
+	 * Modified to squash spaces as the StatsD server used (Telegraf) does not support spaces in names.
+	 *
+	 * Further more the value of -Infinity is not supported by the destination metric store (In this case Elasticsearch)
+	 * Even in the Flink web ui -Infinity stats show up as NaN, so 0 them out.
+	 *
+	 * This can be made configurable by RegEx pattern if we really wanted to.
+	 */
 	private void send(final String name, final String value) {
 		try {
 			String formatted = String.format("%s:%s|g", replace(name, " ", ""), replace(value, "-Infinity", "0"));
